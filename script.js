@@ -13,46 +13,54 @@
 // Extras:
 // - A página deve conter um campo para inserção de texto com a finalidade de adicionar novas palavras ao jogo, e um botão "Adicionar nova palavra".
 
-function desenhaTabuleiro {
+let palavras = ['clayton', 'rebecca'];
+let canvas = document.querySelector('.canvas-forca');
+let forca = document.querySelector('.img-forca');
+let context = canvas.getContext('2d');
 
-}
+context.drawImage(forca, 0, 0);
+// context.beginPath();
 
-function criarPalavraSecreta {
+// function desenhaTabuleiro {
 
-}
+// }
 
-function criarTracosPalavraSecreta {
+// function criarPalavraSecreta {
 
-}
+// }
 
-function verificarLetraPressionada {
+// function criarTracosPalavraSecreta {
 
-}
+// }
 
-function escreverLetraCorreta {
+// function verificarLetraPressionada {
 
-}
+// }
 
-function escreverLetraIncorreta {
+// function escreverLetraCorreta {
+
+// }
+
+// function escreverLetraIncorreta {
     
-}
+// }
 
-function desenharForca {
+// function desenharForca {
 
-}
+// }
 
-function verificarLetraCorreta {
+// function verificarLetraCorreta {
 
-}
+// }
 
-function gameOver {
+// function gameOver {
 
-}
+// }
 
-function youWin {
+// function youWin {
 
-}
+// }
 
-function addWord {
-    
-}
+// function addWord {
+
+// }

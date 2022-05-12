@@ -1,31 +1,68 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/x-icon" href="/imagens/hangman.ico" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Creepster&family=Press+Start+2P&display=swap"
+      rel="stylesheet"
+    />
     <title>Jogo Da Forca</title>
-</head>
-<body>
+    <link rel="stylesheet" href="style.css" />
+    <script defer src="script.js"></script>
+  </head>
+  <body>
     <div class="container">
-        <header>
-            <a href="https://www.alura.com.br/" target="_blank"><img src="imagens/logo-alura.svg" alt="logomarca Alura, uma letra de forma a minuscula"></a>
-            <h1>Hang On Buddy!</h1>
-        </header>
-        <div class="area-forca">
-            <img src="" alt="">
-            <p>Letras da palavra aqui...</p>
-        </div>
-        <p class="venceu">Você venceu. Parabéns!</p>
-        <p class="perdeu">Game Over! x_x</p>
-        <p class="letras-erradas" id="letras-erradas">Letras Erradas:</p>
-        <button class="start">Iniciar Jogo</button>
-        <button class="add-word">Adicionar Nova Palavra</button>
-        <footer>
-            <p>&copy; 2022 - by <strong>Clayton Klein</strong></p>
-            <a href="https://github.com/clayton-klein" target="_blank"><img src="imagens/github.png" alt="logo do github, uma mistura de cabeça de gato com tentáculos de polvo"></a>
-            <a href="https://www.linkedin.com/in/clayton-klein/" target="_blank"><img src="imagens/linkedin.png" alt="logo LinkedIn, as letras de forma minúsculas i e n juntas"></a>
-       </footer>
+      <header>
+        <a href="https://www.alura.com.br/" target="_blank"
+          ><img
+            src="imagens/logo-alura.svg"
+            alt="logomarca Alura, uma letra de forma a minuscula"
+        /></a>
+      </header>
+      <h1>Hang On Buddy!</h1>
+      <div class="area-forca">
+        <canvas class="canvas-forca" width="1200" height="800">
+          <img
+            src="imagens/businessman-hanging-vichanchairat.jpg"
+            class="img-forca"
+            alt="boneco de um homem enforcado"
+          />
+        </canvas>
+        <p>Letras da palavra aqui...</p>
+      </div>
+      <p class="venceu">Você venceu. Parabéns!</p>
+      <p class="perdeu">Game Over! x_x</p>
+      <p class="letras-erradas" id="letras-erradas">Letras Erradas:</p>
+      <button class="start">Iniciar Jogo</button>
+      <button class="add-word">Adicionar Nova Palavra</button>
+      <footer>
+        <p>&copy; 2022 - by <strong>Clayton Klein</strong></p>
+        <a href="https://github.com/clayton-klein" target="_blank"
+          ><img
+            src="imagens/github.png"
+            alt="logo do github, uma mistura de cabeça de gato com tentáculos de polvo"
+        /></a>
+        <a href="https://www.linkedin.com/in/clayton-klein/" target="_blank"
+          ><img
+            src="imagens/linkedin.png"
+            alt="logo LinkedIn, as letras de forma minúsculas i e n juntas"
+        /></a>
+        <p>Créditos:</p>
+        <ul>
+          <li>
+            <a
+              href="https://www.flaticon.com/free-icons/hangman-game"
+              title="hangman game icons"
+              >Hangman game icons created by Freepik - Flaticon</a
+            >
+          </li>
+        </ul>
+      </footer>
     </div>
-</body>
+  </body>
 </html>
