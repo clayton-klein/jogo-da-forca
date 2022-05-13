@@ -10,29 +10,38 @@
     font-family: Arial, Helvetica, sans-serif;
 }
 
-.container {
+main {
+    width: 80%;
     margin: 0 auto;
+    background-image: url(imagens/paisagem-natural-fundo.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.logo-alura {
+    width: 3%;
 }
 
 h1 {
     font-family: 'Creepster', cursive;
     color: red;
-    letter-spacing: 1px;
+    letter-spacing: 2px;
     font-size: 50px;
 }
-canvas {
-    border: solid black 2px;
-    width: 40%;
-}
 
-canvas img {
-    width: 50%;
+.img-forca {
+    width: 25%;
 }
 
 button {
     padding: 10px 20px;
     border-radius: 15px;
     font-family: 'Press Start 2P', cursive;
+}
+
+footer {
+    background-color: brown;
+    margin-top: 40px;
 }
 
 footer img {
