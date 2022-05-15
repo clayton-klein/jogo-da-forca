@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Creepster&family=Press+Start+2P&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Creepster&family=Freckle+Face&family=Press+Start+2P&display=swap"
       rel="stylesheet"
     />
     <title>Jogo Da Forca</title>
@@ -17,60 +17,69 @@
   </head>
   <body>
     <main class="container">
-      <header>
-        <a href="https://www.alura.com.br/" target="_blank"
-          ><img
-            src="imagens/logo-alura.svg"
-            alt="logomarca Alura, uma letra de forma a minuscula"
-            class="logo-alura"
-        /></a>
-      </header>
-      <h1>Hang On Buddy!</h1>
-      <div class="area-forca">
-        <img
+      <div class="game-area">
+        <header>
+          <a href="https://www.alura.com.br/" target="_blank"
+            ><img
+              src="imagens/logo-alura.svg"
+              alt="logomarca Alura, uma letra de forma a minúscula"
+              class="logo-alura"
+          /></a>
+        </header>
+        <h1>Hang On Buddy!</h1>
+        <div class="hangman-area">
+          <img
             src="imagens/forca6.webp"
-            class="img-forca"
+            class="hangman-img"
             alt="boneco de um homem enforcado"
-        />
-        </canvas>
-        <p>Letras da palavra aqui...</p>
+          />
+          <p class="tip">Dica:</p>
+          <p class="right-letters-box">Letras da palavra aqui...</p>
+          <p class="wrong-letters-box">Letras Erradas:</p>
+          <button class="start">Iniciar Jogo</button>
+          <button class="add-word">Adicionar Palavra</button>
+        </div>
+        <p class="win">Você venceu. Parabéns!</p>
+        <p class="lose">Game Over! x_x</p>
       </div>
-      <p>Dica:</p>
-      <p class="venceu">Você venceu. Parabéns!</p>
-      <p class="perdeu">Game Over! x_x</p>
-      <p class="letras-erradas" id="letras-erradas">Letras Erradas:</p>
-      <button class="start">Iniciar Jogo</button>
-      <button class="add-word">Adicionar Palavra</button>
       <footer>
         <p>&copy; 2022 - by <strong>Clayton Klein</strong></p>
-        <a href="https://github.com/clayton-klein" target="_blank"
-          ><img
-            src="imagens/github.png"
-            alt="logo do github, uma mistura de cabeça de gato com tentáculos de polvo"
-        /></a>
-        <a href="https://www.linkedin.com/in/clayton-klein/" target="_blank"
-          ><img
-            src="imagens/linkedin.png"
-            alt="logo LinkedIn, as letras de forma minúsculas i e n juntas"
-        /></a>
-        <p>Créditos:</p>
-        <ul>
-          <li>
-            <a
-              href="https://www.flaticon.com/free-icons/hangman-game"
-              title="hangman game icons"
-              >Hangman game icons created by Freepik - Flaticon</a
-            >
-          </li>
-          <li>
-            <a href="https://www.freepik.com/vectors/countryside"
-              >Countryside vector created by pikisuperstar - www.freepik.com</a
-            >
-          </li>
-          <li>
-            <a href='https://mixkit.co/free-sound-effects/forest/'>Efeitos Sonoros - www.mixkit.co</a>
-          </li>
-        </ul>
+        <div class="social-media-icons">
+          <a href="https://github.com/clayton-klein" target="_blank"
+            ><img
+              src="imagens/github.png"
+              alt="logo do github, uma mistura de cabeça de gato com tentáculos de polvo"
+          /></a>
+          <a href="https://www.linkedin.com/in/clayton-klein/" target="_blank"
+            ><img
+              src="imagens/linkedin.png"
+              alt="logo LinkedIn, as letras de forma minúsculas i e n juntas"
+              class="linkedin-logo"
+          /></a>
+        </div>
+        <div class="credits">
+          <p>Créditos:</p>
+          <ul>
+            <li>
+              <a
+                href="https://www.flaticon.com/free-icons/hangman-game"
+                title="hangman game icons"
+                >Hangman game icons created by Freepik - Flaticon</a
+              >
+            </li>
+            <li>
+              <a href="https://www.freepik.com/vectors/countryside"
+                >Countryside vector created by pikisuperstar -
+                www.freepik.com</a
+              >
+            </li>
+            <li>
+              <a href="https://mixkit.co/free-sound-effects/forest/"
+                >Efeitos Sonoros - www.mixkit.co</a
+              >
+            </li>
+          </ul>
+        </div>
       </footer>
     </main>
   </body>

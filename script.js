@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 // Requisitos:
 // - Deve funcionar só com letras maiúsculas;
 // - Não devem ser utilizadas letras com acentos nem caracteres especiais;
@@ -13,13 +13,27 @@
 // Extras:
 // - A página deve conter um campo para inserção de texto com a finalidade de adicionar novas palavras ao jogo, e um botão "Adicionar nova palavra".
 
-let palavras = ['clayton', 'rebecca'];
-let canvas = document.querySelector('.canvas-forca');
-let forca = document.querySelector('.img-forca');
-let context = canvas.getContext('2d');
+let hangmanImg = document.querySelector(".img-forca");
+let wrongLettersBox = document.querySelector(".wrong-letters-box");
+let rightLettersBox = document.querySelector("right-letters-box");
+let playBtn = document.querySelector(".start");
+let addWordBtn = document.querySelector(".add-word");
 
-context.drawImage(forca, 0, 0);
-// context.beginPath();
+let words = [
+  "clayton",
+  "rebecca",
+  "gustavo",
+  "weslley",
+  "ellen",
+  "raquel",
+  "mauricio",
+  "ricardo",
+  "bruno",
+  "marlene",
+];
+
+let rightLetters = [];
+let wrongLetters = [];
 
 // function desenhaTabuleiro {
 
@@ -42,7 +56,7 @@ context.drawImage(forca, 0, 0);
 // }
 
 // function escreverLetraIncorreta {
-    
+
 // }
 
 // function desenharForca {

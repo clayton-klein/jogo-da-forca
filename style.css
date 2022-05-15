@@ -8,42 +8,99 @@
 
 :root {
     font-family: Arial, Helvetica, sans-serif;
+    --font-retro-game: 'Press Start 2P', cursive;
+    --font-freckle: 'Freckle Face', cursive;
 }
 
-main {
-    width: 80%;
+html {
+    background-color: azure;
+}
+
+.container {
     margin: 0 auto;
-    background-image: url(imagens/paisagem-natural-fundo.jpg);
-    background-repeat: no-repeat;
-    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    max-width: 1200px;
+    max-height: 800px;
+}
+
+header {
+    margin-top: 10px;
+    margin-left: 20px;
+    width: 100%;
+    text-align: left;
 }
 
 .logo-alura {
     width: 3%;
 }
 
-h1 {
-    font-family: 'Creepster', cursive;
-    color: red;
-    letter-spacing: 2px;
-    font-size: 50px;
+.game-area {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 80%;
+    background-image: url(imagens/paisagem-natural-fundo.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
-.img-forca {
-    width: 25%;
+h1 {
+    text-align: center;
+    font-family: 'Creepster', cursive;
+    color: red;
+    text-shadow: 2px 2px 2px black;
+    letter-spacing: 2px;
+    font-size: 70px;
+}
+
+.hangman-img {
+    margin-top: 10px;
+    width: 40%;
+}
+
+.tip, .right-letters-box, .wrong-letters-box, .win, .lose {
+    font-family: var(--font-freckle);
 }
 
 button {
     padding: 10px 20px;
     border-radius: 15px;
-    font-family: 'Press Start 2P', cursive;
+    font-family: var(--font-retro-game);
+}
+
+button:hover {
+    cursor: pointer;
 }
 
 footer {
-    background-color: brown;
-    margin-top: 40px;
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 1.0);
 }
 
-footer img {
-    width: 4%;
+footer p {
+    margin-top: 2vh;
+    color: aliceblue;
+}
+
+.social-media-icons {
+    display: inline-block;
+}
+
+.social-media-icons img {
+    margin-top: 2vh;
+    width: 5%;
+}
+
+.credits {
+    margin-top: 2vh;
 }
