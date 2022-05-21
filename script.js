@@ -13,11 +13,20 @@
 // Extras:
 // - A página deve conter um campo para inserção de texto com a finalidade de adicionar novas palavras ao jogo, e um botão "Adicionar nova palavra".
 
+window.onload = function (
+
+  let bgMusic = new sound("sons/mixkit-quiet-forest-ambience-1220.mp3");
+  bgMusic.play();
+);
+
 let hangmanImg = document.querySelector(".img-forca");
 let wrongLettersBox = document.querySelector(".wrong-letters-box");
 let rightLettersBox = document.querySelector("right-letters-box");
 let playBtn = document.querySelector(".start");
 let addWordBtn = document.querySelector(".add-word");
+
+
+let regex = /^[a-zA-Z]$/;
 
 let words = [
   "clayton",
