@@ -13,20 +13,13 @@
 // Extras:
 // - A página deve conter um campo para inserção de texto com a finalidade de adicionar novas palavras ao jogo, e um botão "Adicionar nova palavra".
 
-window.onload = function (
-
-  let bgMusic = new sound("sons/mixkit-quiet-forest-ambience-1220.mp3");
-  bgMusic.play();
-);
-
+// HTML elements selection
 let hangmanImg = document.querySelector(".img-forca");
 let wrongLettersBox = document.querySelector(".wrong-letters-box");
-let rightLettersBox = document.querySelector("right-letters-box");
+let lettersBox = document.querySelector("letters-box");
 let playBtn = document.querySelector(".start");
 let addWordBtn = document.querySelector(".add-word");
 
-
-let regex = /^[a-zA-Z]$/;
 
 let words = [
   "clayton",
@@ -41,49 +34,85 @@ let words = [
   "marlene",
 ];
 
+let secretWord =;
 let rightLetters = [];
 let wrongLetters = [];
 
-// function desenhaTabuleiro {
+let remainingLetters = secretWord.length;
+let mistakes = 0;
+
+let regex = /[a-zA-Z]/;
+// function drawBoard {
+  //let bgMusic = new Audio('sounds/mixkit-quiet-forest-ambience-1220.mp3');
+//   bgMusic.play();
+//   bgMusic.loop = true;
 
 // }
 
-// function criarPalavraSecreta {
+function createSecretWord() {
+
+  secretWord = words[Math.floor(Math.random() * words.length)];
+  return secretWord;
+
+}
+
+function createUnderlines() {
+
+  for (let i = 0; i < secretWord.length; i++) {
+    let letters = document.querySelector('.letters-box');    
+    showUnderlines[i] = '_';
+    letters.innerText = showUnderlines;
+  }
+}
+
+
+function checkKeyPressed() {
+  window.addEventListener('input', (e)=> {
+    if(!regex.test()) {
+      alert('Utilize somente letras sem acentos');
+    } else {
+
+    }
+  });
+}
+
+function writeCorrectWord() {
+  rightLetters = ;
+}
+
+function writeIncorrectWord() {
+  wrongLetters = ;
+}
+
+function drawHangman() {
+  hangmanImg.setAttribute('src', '`images/forca${++}.webp`');
+
+}
+
+// function checkCorrectWord {
+  // if(!regex) {
+  //   alert('Utilize somente letras sem acentos')
+  // }
 
 // }
 
-// function criarTracosPalavraSecreta {
+// function gameOver() {
+// if (mistakes === 5) {
+
+//}
+// }
+
+// function youWin() {
+  // if(remainingLetters === 0) {
+    
+  // }
 
 // }
 
-// function verificarLetraPressionada {
-
+// function addWord(word) {
+  //words = words.push(word)
 // }
 
-// function escreverLetraCorreta {
-
-// }
-
-// function escreverLetraIncorreta {
-
-// }
-
-// function desenharForca {
-
-// }
-
-// function verificarLetraCorreta {
-
-// }
-
-// function gameOver {
-
-// }
-
-// function youWin {
-
-// }
-
-// function addWord {
-
-// }
+while (mistakes <= 5 || remainingLetters > 0) {
+  
+}
