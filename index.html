@@ -33,14 +33,33 @@
             class="hangman-img"
             alt="boneco de um homem enforcado"
           />
-          <p class="tip">Dica:</p>
+          <p class="tip">Dica: Nomes.</p>
           <p class="letters-box">Letras da palavra aqui...</p>
           <p class="wrong-letters-box">Letras Erradas:</p>
           <button class="start">Iniciar Jogo</button>
           <button class="add-word">Adicionar Palavra</button>
         </div>
-        <p class="win">Você venceu. Parabéns!</p>
-        <p class="lose">Game Over! x_x</p>
+        <dialog class="addWord">
+          <div class="dialog-content">
+            <legend>Escreva a palavra que deseja adicionar: <br> 
+              <input type="text" class="word-input" /></legend>
+            <p>
+              (somente letras sem acentos).
+            </p>
+            <button>Adicionar Palavra</button>
+            <button>Fechar</button>
+          </div>
+        </dialog>
+        <dialog class="win">
+          <p>Você venceu. Parabéns!</p>
+          <button>Jogar Novamente</button>
+          <button>Fechar</button>
+        </dialog>
+        <dialog class="lose">
+          <p>Game Over! x_x</p>
+          <button>Jogar Novamente</button>
+          <button>Fechar</button>
+        </dialog>
       </div>
       <footer>
         <p>&copy; 2022 - by <strong>Clayton Klein</strong></p>
