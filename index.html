@@ -34,31 +34,42 @@
             alt="boneco de um homem enforcado"
           />
           <p class="tip">Dica: Nomes.</p>
-          <p class="letters-box">Letras da palavra aqui...</p>
-          <p class="wrong-letters-box">Letras Erradas:</p>
-          <button class="start">Iniciar Jogo</button>
-          <button class="add-word">Adicionar Palavra</button>
+          <div class="letters-box">Letras da palavra aqui...</div>
+          <div class="wrong-letters-box">Letras Erradas:</div>
+          <button class="start-btn">Iniciar Jogo</button>
+          <button class="quit-btn">Desistir</button>
+          <button class="add-word-btn">Adicionar Palavra</button>
         </div>
-        <dialog class="addWord">
+        <dialog class="invalid-input-dialog">
           <div class="dialog-content">
-            <legend>Escreva a palavra que deseja adicionar: <br> 
-              <input type="text" class="word-input" /></legend>
-            <p>
-              (somente letras sem acentos).
-            </p>
-            <button>Adicionar Palavra</button>
-            <button>Fechar</button>
+            <p>Utiliza somente letras minúsculas e sem acentos.</p>
+            <button class="close-dialog-btn">Fechar</button>
           </div>
         </dialog>
-        <dialog class="win">
-          <p>Você venceu. Parabéns!</p>
-          <button>Jogar Novamente</button>
-          <button>Fechar</button>
+        <dialog class="add-word-dialog">
+          <div class="dialog-content">
+            <legend>
+              Escreva a palavra que deseja adicionar: <br />
+              <input type="text" class="word-input" />
+            </legend>
+            <p>(somente letras sem acentos).</p>
+            <button class="save-added-word-btn">Salvar</button>
+            <button class="close-dialog-btn">Fechar</button>
+          </div>
         </dialog>
-        <dialog class="lose">
-          <p>Game Over! x_x</p>
-          <button>Jogar Novamente</button>
-          <button>Fechar</button>
+        <dialog class="win-dialog">
+          <div class="dialog-content">
+            <p>Você venceu. Parabéns!</p>
+            <button class="play-again-btn">Jogar Novamente</button>
+            <button class="close-dialog-btn">Fechar</button>
+          </div>
+        </dialog>
+        <dialog class="lose-dialog">
+          <div class="dialog-content">
+            <p>Game Over! x_x</p>
+            <button class="play-again-btn">Jogar Novamente</button>
+            <button class="close-dialog-btn">Fechar</button>
+          </div>
         </dialog>
       </div>
       <footer>

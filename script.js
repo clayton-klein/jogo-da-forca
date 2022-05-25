@@ -13,19 +13,29 @@
 // Extras:
 // - A página deve conter um campo para inserção de texto com a finalidade de adicionar novas palavras ao jogo, e um botão "Adicionar nova palavra".
 
-// HTML elements selection
-
-let hangmanImg = document.querySelector(".img-forca");
-let wrongLettersBox = document.querySelector(".wrong-letters-box");
+// HTML elements' selection
+let hangmanImg = document.querySelector(".hangman-img");
 let lettersBox = document.querySelector("letters-box");
-let playBtn = document.querySelector(".start");
-let addWordBtn = document.querySelector(".add-word");
+let wrongLettersBox = document.querySelector(".wrong-letters-box");
+let playBtn = document.querySelector(".start-btn");
+let quitBtn = document.querySelector(".quit-btn");
+let addWordBtn = document.querySelector(".add-word-btn");
+let addWordDialog = document.querySelector(".add-word-dialog");
+let saveAddedWordBtn = document.querySelector(".confirm-added-word-btn");
+let invalidInputDialog = document.querySelector('.invalid-input-dialog');
+let winDialog = document.querySelector(".win-dialog");
+let loseDialog = document.querySelector(".lose-dialog");
+let playAgainBtn = document.querySelector(".play-again-btn");
 
-addWordBtn.addEventListener("click", () => {
-  let clickAudio = new Audio("sounds/mixkit-retro-game-notification-212.mp3");
-  clickAudio.play();
-  document.querySelector(".addWord").showModal();
-});
+// addWordBtn.addEventListener("click", () => {
+//   let clickAudio = new Audio("sounds/mixkit-retro-game-notification-212.mp3");
+//   clickAudio.play();
+//   addWordDialog.showModal();
+// });
+
+// closeDialogBtn.addEventListener("click", () => {
+//   addWordDialog.close();
+// });
 
 let words = [
   "clayton",
@@ -35,60 +45,66 @@ let words = [
   "ellen",
   "raquel",
   "mauricio",
-  "ricardo",
-  "bruno",
+  "oracle",
+  "alura",
   "marlene",
 ];
 
 let secretWord = "";
-let placeHolder = [];
 let rightLetters = [];
 let wrongLetters = [];
 
 let remainingLetters = secretWord.length;
 let mistakes = 0;
 
-let regexLowerCase = /[a-z]/;
-let regexUpperCase = /[A-Z]/;
+let regexLowerCase = /^[a-z]$/;
 
-// function drawBoard {
-//let bgMusic = new Audio('sounds/mixkit-quiet-forest-ambience-1220.mp3');
-//   bgMusic.play();
-//   bgMusic.loop = true;
-// }
+function drawBoardGame() {
+  let bgMusic = new Audio("sounds/mixkit-quiet-forest-ambience-1220.mp3");
+  bgMusic.play();
+  bgMusic.loop = true;
+  hangmanImg.setAttribute("src", "images/forca.webp");
+}
 
 function createSecretWord() {
   secretWord = words[Math.floor(Math.random() * words.length)];
   return secretWord;
 }
 
-function createUnderlines() {
-  for (let i = 0; i < secretWord.length; i++) {
-    placeHolder[i] = "_";
-    lettersBox.innerText = placeHolder;
-  }
-}
-
-function checkKeyPressed() {
+function checkInput() {
   window.addEventListener("input", (e) => {
-    if (e.input != regex.test()) {
-      alert("Utilize somente letras sem acentos");
+    if (
+      e.input.value != regexLowerCase.test()
+    ) {
+      invalidInputDialog.showModal();
     } else {
+      e.input.value.toUpperCase();
+    }
+
+    for (let i = 0; i < secretWord.length; i++) {
+      if (e.input.value === secretWord[i]) {
+        writeCorrectLetter(e);
+      } else {
+        writeIncorrectLetter(e);
+      }
     }
   });
 }
 
-function writeCorrectWord(e) {
+function writeCorrectLetter(e) {
   let correctSound = new Audio("sounds/mixkit-funny-squeaky-toy-hits-2813.mp3");
   correctSound.play();
-  rightLetters = e.input;
+  rightLetters[i] = e.input.value;
+  remainingLetters--;
   return rightLetters;
 }
 
-function writeIncorrectWord(e) {
+function writeIncorrectLetter(e) {
   let wrongSound = new Audio("sounds/mixkit-boxer-getting-hit-2055.mp3");
   wrongSound.play();
-  wrongLetters = e.input;
+  wrongLetters[i] = e.input.value;
+  mistakes++;
+  drawHangman();
   return wrongLetters;
 }
 
@@ -96,20 +112,15 @@ function drawHangman() {
   hangmanImg.setAttribute("src", `images/forca${mistakes}.webp`);
 }
 
-function checkCorrectWord() {
-  if (!regexLowerCase.test() || !regexUpperCase) {
-    alert("Utilize somente letras sem acentos");
-  }
-}
-
 function gameOver() {
   if (mistakes === 5) {
     let bloodyAudio = new Audio("sounds/mixkit-video-game-blood-pop-2361.mp3");
+    bloodyAudio.play();
     let gameOverTrombone = new Audio(
       "sounds/mixkit-sad-game-over-trombone-471.mp3"
     );
-    bloodyAudio.play();
     gameOverTrombone.play();
+    loseDialog.showModal();
   }
 }
 
@@ -119,11 +130,14 @@ function youWin() {
       "sounds/mixkit-animated-small-group-applause-523.mp3"
     );
     applause.play();
+    winDialog.showModal();
   }
 }
 
-function addWord(word) {
+function addWord() {
+  let word = document.querySelector(".word-input").value;
   words.push(word);
+  return words;
 }
 
 // while (mistakes <= 5 || remainingLetters > 0) {
