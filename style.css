@@ -27,8 +27,8 @@ html {
 }
 
 header {
-    margin-top: 10px;
-    margin-left: 20px;
+    margin-top: 2vh;
+    margin-left: 2vw;
     width: 100%;
     text-align: left;
 }
@@ -54,18 +54,37 @@ h1 {
     font-family: 'Creepster', cursive;
     color: red;
     text-shadow: 2px 2px 2px black;
-    letter-spacing: 2px;
-    font-size: 70px;
+    letter-spacing: 4px;
+    font-size: 4.5rem;
 }
 
 .hangman-img {
-    margin-top: 10px;
-    width: 31%;
+    margin-top: 2vh;
+    width: 40%;
 }
 
-.tip, .right-letters-box, .wrong-letters-box, .win, .lose {
+.tip, .letters-box, .right-letters-box, .wrong-letters-box, .win, .lose {
     font-family: var(--font-freckle);
 }
+
+.tip {
+    visibility: hidden;
+}
+
+.letters-box input {
+    margin: 0px 5px;
+    width: 3rem;
+    height: 3rem;
+    font-family: var(--font-freckle);
+    font-size: 2rem;
+    text-align: center;
+    border-radius: 5px;
+}
+
+.wrong-letters-box {
+    visibility: hidden;
+}
+
 
 button {
     padding: 10px 20px;
@@ -78,6 +97,10 @@ button {
 button:hover {
     cursor: pointer;
     background-color: rgb(140, 241, 241);
+}
+
+.quit-btn {
+    display: none;
 }
 
 dialog {

@@ -15,14 +15,15 @@
 
 // HTML elements' selection
 let hangmanImg = document.querySelector(".hangman-img");
-let lettersBox = document.querySelector("letters-box");
+let tip = document.querySelector(".tip");
+let lettersBox = document.querySelector(".letters-box");
 let wrongLettersBox = document.querySelector(".wrong-letters-box");
 let playBtn = document.querySelector(".start-btn");
 let quitBtn = document.querySelector(".quit-btn");
 let addWordBtn = document.querySelector(".add-word-btn");
 let addWordDialog = document.querySelector(".add-word-dialog");
 let saveAddedWordBtn = document.querySelector(".confirm-added-word-btn");
-let invalidInputDialog = document.querySelector('.invalid-input-dialog');
+let invalidInputDialog = document.querySelector(".invalid-input-dialog");
 let winDialog = document.querySelector(".win-dialog");
 let loseDialog = document.querySelector(".lose-dialog");
 let playAgainBtn = document.querySelector(".play-again-btn");
@@ -31,10 +32,11 @@ let playAgainBtn = document.querySelector(".play-again-btn");
 //   let clickAudio = new Audio("sounds/mixkit-retro-game-notification-212.mp3");
 //   clickAudio.play();
 //   addWordDialog.showModal();
-// });
 
-// closeDialogBtn.addEventListener("click", () => {
-//   addWordDialog.close();
+//   let closeDialogBtn = document.querySelector("#closeAddWordDialogBtn");
+//   closeDialogBtn.addEventListener("click", () => {
+//     addWordDialog.close();
+//   });
 // });
 
 let words = [
@@ -54,41 +56,62 @@ let secretWord = "";
 let rightLetters = [];
 let wrongLetters = [];
 
-let remainingLetters = secretWord.length;
 let mistakes = 0;
 
-let regexLowerCase = /^[a-z]$/;
+let regexLowerCase = /[a-z]/;
 
+playBtn.addEventListener("click", drawBoardGame);
 function drawBoardGame() {
+  hangmanImg.setAttribute("src", "images/forca.webp");
+
+  createSecretWord();
+
   let bgMusic = new Audio("sounds/mixkit-quiet-forest-ambience-1220.mp3");
   bgMusic.play();
   bgMusic.loop = true;
-  hangmanImg.setAttribute("src", "images/forca.webp");
+
+  tip.style.visibility = "visible";
+  wrongLettersBox.style.visibility = "visible";
+  playBtn.style.display = "none";
+  addWordBtn.style.display = "none";
+  quitBtn.style.display = "inline-block";
+
+  document.querySelector("header").style.marginTop = "6vh";
 }
+
+quitBtn.addEventListener("click", resetGame);
 
 function createSecretWord() {
   secretWord = words[Math.floor(Math.random() * words.length)];
+
+  for (let i = 0; i < secretWord.length; i++) {
+    let inputElement = document.createElement("input");
+    inputElement.setAttribute("type", "text");
+    inputElement.setAttribute("maxlength", "1");
+
+    lettersBox.appendChild(inputElement);
+  }
+
   return secretWord;
 }
 
-function checkInput() {
-  window.addEventListener("input", (e) => {
-    if (
-      e.input.value != regexLowerCase.test()
-    ) {
-      invalidInputDialog.showModal();
-    } else {
-      e.input.value.toUpperCase();
-    }
+let remainingLetters = secretWord.length;
 
-    for (let i = 0; i < secretWord.length; i++) {
-      if (e.input.value === secretWord[i]) {
-        writeCorrectLetter(e);
-      } else {
-        writeIncorrectLetter(e);
-      }
+window.addEventListener("input", checkInput);
+function checkInput(e) {
+  if (!regexLowerCase.test(e.input.value)) {
+    invalidInputDialog.showModal();
+  } else {
+    e.input.value.toUpperCase();
+  }
+
+  for (let i = 0; i < secretWord.length; i++) {
+    if (e.input.value === secretWord[i]) {
+      writeCorrectLetter(e);
+    } else {
+      writeIncorrectLetter(e);
     }
-  });
+  }
 }
 
 function writeCorrectLetter(e) {
@@ -97,31 +120,6 @@ function writeCorrectLetter(e) {
   rightLetters[i] = e.input.value;
   remainingLetters--;
   return rightLetters;
-}
-
-function writeIncorrectLetter(e) {
-  let wrongSound = new Audio("sounds/mixkit-boxer-getting-hit-2055.mp3");
-  wrongSound.play();
-  wrongLetters[i] = e.input.value;
-  mistakes++;
-  drawHangman();
-  return wrongLetters;
-}
-
-function drawHangman() {
-  hangmanImg.setAttribute("src", `images/forca${mistakes}.webp`);
-}
-
-function gameOver() {
-  if (mistakes === 5) {
-    let bloodyAudio = new Audio("sounds/mixkit-video-game-blood-pop-2361.mp3");
-    bloodyAudio.play();
-    let gameOverTrombone = new Audio(
-      "sounds/mixkit-sad-game-over-trombone-471.mp3"
-    );
-    gameOverTrombone.play();
-    loseDialog.showModal();
-  }
 }
 
 function youWin() {
@@ -134,12 +132,41 @@ function youWin() {
   }
 }
 
+function writeIncorrectLetter(e) {
+  let wrongSound = new Audio("sounds/mixkit-boxer-getting-hit-2055.mp3");
+  wrongSound.play();
+  wrongLetters = e.input.value.push();
+  mistakes++;
+  drawHangman();
+  return wrongLetters;
+}
+
+function drawHangman() {
+  hangmanImg.setAttribute("src", `images/forca${mistakes}.webp`);
+}
+
+function gameOver() {
+  if (mistakes === 6) {
+    let bloodyAudio = new Audio("sounds/mixkit-video-game-blood-pop-2361.mp3");
+    bloodyAudio.play();
+    let gameOverTrombone = new Audio(
+      "sounds/mixkit-sad-game-over-trombone-471.mp3"
+    );
+    gameOverTrombone.play();
+    loseDialog.showModal();
+  }
+}
+
 function addWord() {
   let word = document.querySelector(".word-input").value;
-  words.push(word);
+  if (word != regex.match || word.length > 8) {
+    invalidInputDialog.showModal();
+  } else {
+    words.push(word);
+  }
   return words;
 }
 
-// while (mistakes <= 5 || remainingLetters > 0) {
-
-// }
+function resetGame() {
+  location.reload();
+}

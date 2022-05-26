@@ -34,7 +34,7 @@
             alt="boneco de um homem enforcado"
           />
           <p class="tip">Dica: Nomes.</p>
-          <div class="letters-box">Letras da palavra aqui...</div>
+          <div class="letters-box"></div>
           <div class="wrong-letters-box">Letras Erradas:</div>
           <button class="start-btn">Iniciar Jogo</button>
           <button class="quit-btn">Desistir</button>
@@ -42,8 +42,8 @@
         </div>
         <dialog class="invalid-input-dialog">
           <div class="dialog-content">
-            <p>Utiliza somente letras minúsculas e sem acentos.</p>
-            <button class="close-dialog-btn">Fechar</button>
+            <p>Utiliza somente letras sem acentos e no máximo 8 caracteres.</p>
+            <button id="closeInvalidInputDialogBtn">Fechar</button>
           </div>
         </dialog>
         <dialog class="add-word-dialog">
@@ -52,23 +52,23 @@
               Escreva a palavra que deseja adicionar: <br />
               <input type="text" class="word-input" />
             </legend>
-            <p>(somente letras sem acentos).</p>
+            <p>(somente letras sem acentos e no máximo 8 caracteres).</p>
             <button class="save-added-word-btn">Salvar</button>
-            <button class="close-dialog-btn">Fechar</button>
+            <button id="closeAddWordDialogBtn">Fechar</button>
           </div>
         </dialog>
         <dialog class="win-dialog">
           <div class="dialog-content">
             <p>Você venceu. Parabéns!</p>
             <button class="play-again-btn">Jogar Novamente</button>
-            <button class="close-dialog-btn">Fechar</button>
+            <button id="closeWinDialogBtn">Fechar</button>
           </div>
         </dialog>
         <dialog class="lose-dialog">
           <div class="dialog-content">
             <p>Game Over! x_x</p>
             <button class="play-again-btn">Jogar Novamente</button>
-            <button class="close-dialog-btn">Fechar</button>
+            <button id="closeLoseDialogBtn">Fechar</button>
           </div>
         </dialog>
       </div>
