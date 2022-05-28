@@ -40,10 +40,16 @@
           <button class="quit-btn">Desistir</button>
           <button class="add-word-btn">Adicionar Palavra</button>
         </div>
-        <dialog class="invalid-input-dialog">
+        <dialog id="invalidInputDialog">
+          <div class="dialog-content">
+            <p>Esta letra já foi escolhida, digite uma letra diferente.</p>
+            <button id="closeInvalidInputDialogBtn">Fechar</button>
+          </div>
+        </dialog>
+        <dialog id="invalidLetterDialog">
           <div class="dialog-content">
             <p>Utiliza somente letras sem acentos e no máximo 8 caracteres.</p>
-            <button id="closeInvalidInputDialogBtn">Fechar</button>
+            <button id="closeInvalidLetterDialogBtn">Fechar</button>
           </div>
         </dialog>
         <dialog class="add-word-dialog">

@@ -85,6 +85,10 @@ h1 {
     background-color: rgba(0, 0, 0, 0.3);
 }
 
+.transparent {
+    color: transparent;
+}
+
 .wrong-letters-box {
     visibility: hidden;
 }
