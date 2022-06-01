@@ -26,7 +26,7 @@ let saveAddedWordBtn = document.querySelector(".confirm-added-word-btn");
 let playAgainBtn = document.querySelector(".play-again-btn");
 let addWordDialog = document.querySelector(".add-word-dialog");
 let invalidInputDialog = document.querySelector("#invalidInputDialog");
-let invalidLetterDialog = document.querySelector("#invalidLetterDialog");
+let repeatedLetterDialog = document.querySelector("#repeatedLetterDialog");
 let winDialog = document.querySelector(".win-dialog");
 let loseDialog = document.querySelector(".lose-dialog");
 
@@ -44,10 +44,12 @@ let words = [
 ];
 
 let secretWord = "";
+let remainingLetters = secretWord.length;
+let lettersArray = [];
 let rightLetters = [];
 let wrongLetters = [];
 let mistakes = 0;
-let regex = /[a-zA-Z]/;
+let regex = /^[a-zA-Z]+$/;
 
 playBtn.addEventListener("click", drawBoardGame);
 function drawBoardGame() {
@@ -56,7 +58,7 @@ function drawBoardGame() {
   let bgMusic = new Audio("sounds/mixkit-quiet-forest-ambience-1220.mp3");
   bgMusic.play();
   bgMusic.loop = true;
-  selectAndDrawSecretWord();
+  drawSecretWord();
 
   tip.style.visibility = "visible";
   wrongLettersBox.style.visibility = "visible";
@@ -71,54 +73,59 @@ quitBtn.addEventListener("click", () => {
   setTimeout(resetGame, 650);
 });
 
-function selectAndDrawSecretWord() {
+function selectSecretWord() {
   secretWord = words[Math.floor(Math.random() * words.length)];
-  let lettersArray = Array.from(secretWord);
-  console.log(lettersArray);
+  return secretWord;
+}
+
+function drawSecretWord() {
+  selectSecretWord();
+  lettersArray = Array.from(secretWord);
 
   for (let i = 0; i < secretWord.length; i++) {
     let inputElement = document.createElement("input");
     inputElement.setAttribute("type", "text");
     inputElement.setAttribute("maxlength", "1");
+    inputElement.setAttribute("readonly", "");
     inputElement.value = lettersArray[i].toUpperCase();
-    inputElement.classList.add("transparent");
+    inputElement.style.color = "transparent";
     lettersBox.appendChild(inputElement);
+    inputElement.focus();
+    inputElement.style.outline = "none";
   }
 
-  return secretWord;
+  return lettersArray;
 }
-
-let remainingLetters = secretWord.length;
 
 document.addEventListener("keydown", checkInput);
 function checkInput(e) {
   let typedLetter = e.key;
-  typedLetter.toUpperCase();
-  //console.log(typedLetter);
-  if (!regex.test(typedLetter)) {
-    invalidLetterDialog.showModal();
-    let closeInvalidLetterDialogBtn = document.querySelector(
-      "#closeInvalidLetterDialogBtn"
-    );
-    closeInvalidLetterDialogBtn.addEventListener("click", () => {
-      invalidLetterDialog.close();
-    });
-  } else if (
-    rightLetters.includes(e.input.value) ||
-    wrongLetters.includes(e.input.value)
-  ) {
-    invalidInputDialog.showModal();
-    let closeInvalidInputDialogBtn = document.querySelector(
-      "#closeInvalidInputDialogBtn"
-    );
-    closeInvalidInputDialogBtn.addEventListener("click", () => {
-      invalidInputDialog.close();
-    });
-  }
+  console.log(typedLetter);
 
-  for (let i = 0; i < secretWord.length; i++) {
-    if (secretWord[i].includes(typedLetter)) {
-      writeCorrectLetter(e);
+  for (let i = 0; i < lettersArray.length; i++) {
+    if ((lettersArray[i] = typedLetter)) {
+      //writeCorrectLetter(e);
+    } else if (!regex.test(typedLetter)) {
+      invalidInputDialog.showModal();
+      let closeInvalidInputDialogBtn = document.querySelector(
+        "#closeInvalidInputDialogBtn"
+      );
+      closeInvalidInputDialogBtn.addEventListener("click", () => {
+        clickAudio.play();
+        invalidInputDialog.close();
+      });
+    } else if (
+      rightLetters.includes(typedLetter) ||
+      wrongLetters.includes(typedLetter)
+    ) {
+      repeatedLetterDialog.showModal();
+      let closeRepeatedLetterDialogBtn = document.querySelector(
+        "#closeRepeatedLetterDialogBtn"
+      );
+      closeRepeatedLetterDialogBtn.addEventListener("click", () => {
+        clickAudio.play();
+        repeatedLetterDialog.close();
+      });
     } else {
       writeIncorrectLetter(e);
     }
@@ -126,10 +133,18 @@ function checkInput(e) {
 }
 
 function writeCorrectLetter(e) {
+  let inputElement = document.querySelector("input").value;
+  inputElement.style.color = "white";
+
   let correctSound = new Audio("sounds/mixkit-funny-squeaky-toy-hits-2813.mp3");
   correctSound.play();
-  rightLetters = e.key.toLowerCase();
+
+  rightLetters.push(e.key.toLowerCase());
+
   remainingLetters--;
+  if (remainingLetters === 0) {
+    youWin();
+  }
 
   return rightLetters;
 }
@@ -137,8 +152,15 @@ function writeCorrectLetter(e) {
 function writeIncorrectLetter(e) {
   let wrongSound = new Audio("sounds/mixkit-boxer-getting-hit-2055.mp3");
   wrongSound.play();
-  wrongLetters = e.key.toLowerCase();
+
+  wrongLetters.push(e.key.toUpperCase());
+  wrongLettersBox.textContent = wrongLetters.split("-");
+
   mistakes++;
+  if (mistakes === 6) {
+    gameOver();
+  }
+
   drawHangman();
 
   return wrongLetters;
@@ -149,66 +171,72 @@ function drawHangman() {
 }
 
 function youWin() {
-  if (remainingLetters === 0) {
-    let applause = new Audio(
-      "sounds/mixkit-animated-small-group-applause-523.mp3"
-    );
-    applause.play();
-    winDialog.showModal();
-    let closeWinDialogBtn = document.querySelector("#closeWinDialogBtn");
-    closeWinDialogBtn.addEventListener("click", () => {
-      winDialog.close();
-      resetGame();
-    });
-    let playAgainBtn = document.querySelector("#playAgainBtn");
-    playAgainBtn.addEventListener("click", () => {
-      clickAudio.play();
-      setTimeout(drawBoardGame(), 1000);
-    });
-  }
+  let applause = new Audio(
+    "sounds/mixkit-animated-small-group-applause-523.mp3"
+  );
+  applause.play();
+
+  winDialog.showModal();
+
+  let closeWinDialogBtn = document.querySelector("#closeWinDialogBtn");
+  closeWinDialogBtn.addEventListener("click", () => {
+    winDialog.close();
+    resetGame();
+  });
+
+  let playAgainBtn = document.querySelector("#playAgainBtn");
+  playAgainBtn.addEventListener("click", () => {
+    clickAudio.play();
+    setTimeout(drawBoardGame(), 1000);
+  });
 }
 
 function gameOver() {
-  if (mistakes === 6) {
-    let bloodyAudio = new Audio("sounds/mixkit-video-game-blood-pop-2361.mp3");
-    bloodyAudio.play();
-    let gameOverTrombone = new Audio(
-      "sounds/mixkit-sad-game-over-trombone-471.mp3"
-    );
-    setTimeout(gameOverTrombone.play(), 1000);
+  let bloodyAudio = new Audio("sounds/mixkit-video-game-blood-pop-2361.mp3");
+  bloodyAudio.play();
+  let gameOverTrombone = new Audio(
+    "sounds/mixkit-sad-game-over-trombone-471.mp3"
+  );
+  setTimeout(gameOverTrombone.play(), 1000);
 
-    loseDialog.showModal();
+  loseDialog.showModal();
 
-    let closeLoseDialogBtn = document.querySelector("#closeLoseDialogBtn");
-    closeLoseDialogBtn.addEventListener("click", () => {
-      clickAudio.play();
-      loseDialog.close();
-      resetGame();
-    });
+  let closeLoseDialogBtn = document.querySelector("#closeLoseDialogBtn");
+  closeLoseDialogBtn.addEventListener("click", () => {
+    clickAudio.play();
+    loseDialog.close();
+    resetGame();
+  });
 
-    let playAgainLostBtn = document.querySelector("#playAgainLostBtn");
-    playAgainLostBtn.addEventListener("click", () => {
-      clickAudio.play();
-      drawBoardGame();
-    });
-  }
+  let playAgainLostBtn = document.querySelector("#playAgainLostBtn");
+  playAgainLostBtn.addEventListener("click", () => {
+    clickAudio.play();
+    drawBoardGame();
+  });
 }
 
 addWordBtn.addEventListener("click", addWord);
 function addWord() {
   clickAudio.play();
   addWordDialog.showModal();
-  let wordInput = document.querySelector(".word-input").value;
   let saveAddedWordBtn = document.querySelector("#saveAddedWordBtn");
   saveAddedWordBtn.addEventListener("click", () => {
+    let wordInput = document.querySelector("#wordInput");
     clickAudio.play();
-    if (!regex.test(wordInput) || wordInput.length > 8) {
+    //console.log(wordInput);
+    if (!regex.test(wordInput.value) || wordInput.value.length > 8) {
       invalidInputDialog.showModal();
-      closeinvalidInputDialog.addEventListener("click", () => {
+      let closeInvalidInputDialogBtn = document.querySelector(
+        "#closeInvalidInputDialogBtn"
+      );
+      closeInvalidInputDialogBtn.addEventListener("click", () => {
+        clickAudio.play();
         invalidInputDialog.close();
       });
     } else {
-      words.push(wordInput);
+      words.push(wordInput.value);
+      wordInput.value = "";
+      addWordDialog.close();
     }
   });
 

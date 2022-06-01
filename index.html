@@ -40,23 +40,23 @@
           <button class="quit-btn">Desistir</button>
           <button class="add-word-btn">Adicionar Palavra</button>
         </div>
-        <dialog id="invalidInputDialog">
+        <dialog id="repeatedLetterDialog">
           <div class="dialog-content">
             <p>Esta letra já foi escolhida, digite uma letra diferente.</p>
-            <button id="closeInvalidInputDialogBtn">Fechar</button>
+            <button id="closeRepeatedLetterDialogBtn">Fechar</button>
           </div>
         </dialog>
-        <dialog id="invalidLetterDialog">
+        <dialog id="invalidInputDialog">
           <div class="dialog-content">
             <p>Utiliza somente letras sem acentos e no máximo 8 caracteres.</p>
-            <button id="closeInvalidLetterDialogBtn">Fechar</button>
+            <button id="closeInvalidInputDialogBtn">Fechar</button>
           </div>
         </dialog>
         <dialog class="add-word-dialog">
           <div class="dialog-content">
             <legend>
               Escreva a palavra que deseja adicionar: <br />
-              <input type="text" class="word-input" />
+              <input type="text" id="wordInput" maxlength="8"/>
             </legend>
             <p>(somente letras sem acentos e no máximo 8 caracteres).</p>
             <button id="saveAddedWordBtn">Salvar</button>
