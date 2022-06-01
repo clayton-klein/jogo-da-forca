@@ -54,11 +54,12 @@ let regex = /^[a-zA-Z]+$/;
 playBtn.addEventListener("click", drawBoardGame);
 function drawBoardGame() {
   clickAudio.play();
+
   hangmanImg.setAttribute("src", "images/forca.webp");
+
   let bgMusic = new Audio("sounds/mixkit-quiet-forest-ambience-1220.mp3");
   bgMusic.play();
   bgMusic.loop = true;
-  drawSecretWord();
 
   tip.style.visibility = "visible";
   wrongLettersBox.style.visibility = "visible";
@@ -66,154 +67,14 @@ function drawBoardGame() {
   addWordBtn.style.display = "none";
   quitBtn.style.display = "inline-block";
   document.querySelector("header").style.marginTop = "6vh";
+
+  drawSecretWord();
 }
 
 quitBtn.addEventListener("click", () => {
   clickAudio.play();
   setTimeout(resetGame, 650);
 });
-
-function selectSecretWord() {
-  secretWord = words[Math.floor(Math.random() * words.length)];
-  return secretWord;
-}
-
-function drawSecretWord() {
-  selectSecretWord();
-  lettersArray = Array.from(secretWord);
-
-  for (let i = 0; i < secretWord.length; i++) {
-    let inputElement = document.createElement("input");
-    inputElement.setAttribute("type", "text");
-    inputElement.setAttribute("maxlength", "1");
-    inputElement.setAttribute("readonly", "");
-    inputElement.value = lettersArray[i].toUpperCase();
-    inputElement.style.color = "transparent";
-    lettersBox.appendChild(inputElement);
-    inputElement.focus();
-    inputElement.style.outline = "none";
-  }
-
-  return lettersArray;
-}
-
-document.addEventListener("keydown", checkInput);
-function checkInput(e) {
-  let typedLetter = e.key;
-  console.log(typedLetter);
-
-  for (let i = 0; i < lettersArray.length; i++) {
-    if ((lettersArray[i] = typedLetter)) {
-      //writeCorrectLetter(e);
-    } else if (!regex.test(typedLetter)) {
-      invalidInputDialog.showModal();
-      let closeInvalidInputDialogBtn = document.querySelector(
-        "#closeInvalidInputDialogBtn"
-      );
-      closeInvalidInputDialogBtn.addEventListener("click", () => {
-        clickAudio.play();
-        invalidInputDialog.close();
-      });
-    } else if (
-      rightLetters.includes(typedLetter) ||
-      wrongLetters.includes(typedLetter)
-    ) {
-      repeatedLetterDialog.showModal();
-      let closeRepeatedLetterDialogBtn = document.querySelector(
-        "#closeRepeatedLetterDialogBtn"
-      );
-      closeRepeatedLetterDialogBtn.addEventListener("click", () => {
-        clickAudio.play();
-        repeatedLetterDialog.close();
-      });
-    } else {
-      writeIncorrectLetter(e);
-    }
-  }
-}
-
-function writeCorrectLetter(e) {
-  let inputElement = document.querySelector("input").value;
-  inputElement.style.color = "white";
-
-  let correctSound = new Audio("sounds/mixkit-funny-squeaky-toy-hits-2813.mp3");
-  correctSound.play();
-
-  rightLetters.push(e.key.toLowerCase());
-
-  remainingLetters--;
-  if (remainingLetters === 0) {
-    youWin();
-  }
-
-  return rightLetters;
-}
-
-function writeIncorrectLetter(e) {
-  let wrongSound = new Audio("sounds/mixkit-boxer-getting-hit-2055.mp3");
-  wrongSound.play();
-
-  wrongLetters.push(e.key.toUpperCase());
-  wrongLettersBox.textContent = wrongLetters.split("-");
-
-  mistakes++;
-  if (mistakes === 6) {
-    gameOver();
-  }
-
-  drawHangman();
-
-  return wrongLetters;
-}
-
-function drawHangman() {
-  hangmanImg.setAttribute("src", `images/forca${mistakes}.webp`);
-}
-
-function youWin() {
-  let applause = new Audio(
-    "sounds/mixkit-animated-small-group-applause-523.mp3"
-  );
-  applause.play();
-
-  winDialog.showModal();
-
-  let closeWinDialogBtn = document.querySelector("#closeWinDialogBtn");
-  closeWinDialogBtn.addEventListener("click", () => {
-    winDialog.close();
-    resetGame();
-  });
-
-  let playAgainBtn = document.querySelector("#playAgainBtn");
-  playAgainBtn.addEventListener("click", () => {
-    clickAudio.play();
-    setTimeout(drawBoardGame(), 1000);
-  });
-}
-
-function gameOver() {
-  let bloodyAudio = new Audio("sounds/mixkit-video-game-blood-pop-2361.mp3");
-  bloodyAudio.play();
-  let gameOverTrombone = new Audio(
-    "sounds/mixkit-sad-game-over-trombone-471.mp3"
-  );
-  setTimeout(gameOverTrombone.play(), 1000);
-
-  loseDialog.showModal();
-
-  let closeLoseDialogBtn = document.querySelector("#closeLoseDialogBtn");
-  closeLoseDialogBtn.addEventListener("click", () => {
-    clickAudio.play();
-    loseDialog.close();
-    resetGame();
-  });
-
-  let playAgainLostBtn = document.querySelector("#playAgainLostBtn");
-  playAgainLostBtn.addEventListener("click", () => {
-    clickAudio.play();
-    drawBoardGame();
-  });
-}
 
 addWordBtn.addEventListener("click", addWord);
 function addWord() {
@@ -247,6 +108,145 @@ function addWord() {
   });
 
   return words;
+}
+
+function selectSecretWord() {
+  secretWord = words[Math.floor(Math.random() * words.length)];
+  return secretWord;
+}
+
+function drawSecretWord() {
+  selectSecretWord();
+  lettersArray = Array.from(secretWord);
+  //console.log(lettersArray);
+
+  for (let i = 0; i < lettersArray.length; i++) {
+    let inputElement = document.createElement("input");
+    inputElement.setAttribute("id", `letterInput${i}`);
+    inputElement.setAttribute("type", "text");
+    inputElement.setAttribute("maxlength", "1");
+    //inputElement.setAttribute("readonly", "");
+    inputElement.value = lettersArray[i].toUpperCase();
+    inputElement.style.color = "transparent";
+    lettersBox.appendChild(inputElement);
+    inputElement.style.outline = "none";
+  }
+  inputElement.focus();
+  
+  return lettersArray;
+}
+
+document.addEventListener("keydown", checkInput);
+function checkInput(e) {
+  let typedLetter = e.key;
+  //console.log(typedLetter);
+
+  for (let i = 0; i < lettersArray.length; i++) {
+    if (typedLetter === lettersArray[i]) {
+      //writeCorrectLetter(e);
+      rightLetters.push(typedLetter.toLowerCase());
+      console.log(rightLetters);
+
+      remainingLetters--;
+      if (remainingLetters === 0) {
+        youWin();
+      }
+
+      let letterInput = document.querySelector(`#letterInput${i}`);
+      letterInput.style.color = "white";
+
+      let correctSound = new Audio(
+        "sounds/mixkit-funny-squeaky-toy-hits-2813.mp3"
+      );
+      correctSound.play();
+
+    } else if (!regex.test(typedLetter)) {
+      invalidInputDialog.showModal();
+      let closeInvalidInputDialogBtn = document.querySelector(
+        "#closeInvalidInputDialogBtn"
+      );
+      closeInvalidInputDialogBtn.addEventListener("click", () => {
+        clickAudio.play();
+        invalidInputDialog.close();
+      });
+    } else if (
+      rightLetters.includes(typedLetter) ||
+      wrongLetters.includes(typedLetter)
+    ) {
+      repeatedLetterDialog.showModal();
+      let closeRepeatedLetterDialogBtn = document.querySelector(
+        "#closeRepeatedLetterDialogBtn"
+      );
+      closeRepeatedLetterDialogBtn.addEventListener("click", () => {
+        clickAudio.play();
+        repeatedLetterDialog.close();
+      });
+    } else {
+      //writeIncorrectLetter(e);
+      wrongLetters.push(typedLetter).toUpperCase;
+      console.log(wrongLetters);
+      wrongLettersBox.textContent = wrongLetters;
+
+      let wrongSound = new Audio("sounds/mixkit-boxer-getting-hit-2055.mp3");
+      wrongSound.play();
+
+      mistakes++;
+      if (mistakes === 6) {
+        gameOver();
+      } else {
+        drawHangman();
+      }
+    }
+  }
+}
+
+function youWin() {
+  let applause = new Audio(
+    "sounds/mixkit-animated-small-group-applause-523.mp3"
+    );
+  applause.play();
+
+  winDialog.showModal();
+  
+  let closeWinDialogBtn = document.querySelector("#closeWinDialogBtn");
+  closeWinDialogBtn.addEventListener("click", () => {
+    winDialog.close();
+    resetGame();
+  });
+  
+  let playAgainBtn = document.querySelector("#playAgainBtn");
+  playAgainBtn.addEventListener("click", () => {
+    clickAudio.play();
+    setTimeout(drawBoardGame(), 1000);
+  });
+}
+
+function drawHangman() {
+  hangmanImg.setAttribute("src", `images/forca${mistakes}.webp`);
+}
+
+function gameOver() {
+  let bloodyAudio = new Audio("sounds/mixkit-video-game-blood-pop-2361.mp3");
+  bloodyAudio.play();
+  let gameOverTrombone = new Audio(
+    "sounds/mixkit-sad-game-over-trombone-471.mp3"
+    );
+  setTimeout(gameOverTrombone.play(), 1000);
+
+  loseDialog.showModal();
+
+  let closeLoseDialogBtn = document.querySelector("#closeLoseDialogBtn");
+  closeLoseDialogBtn.addEventListener("click", () => {
+    clickAudio.play();
+    loseDialog.close();
+    resetGame();
+  });
+
+  let playAgainLostBtn = document.querySelector("#playAgainLostBtn");
+  playAgainLostBtn.addEventListener("click", () => {
+    clickAudio.play();
+    drawBoardGame();
+  });
 }
 
 function resetGame() {
