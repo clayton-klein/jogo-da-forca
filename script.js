@@ -49,7 +49,7 @@ let lettersArray = [];
 let rightLetters = [];
 let wrongLetters = [];
 let mistakes = 0;
-let regex = /^[a-z]+$/;
+let regex = /^[a-z]+$/i;
 
 playBtn.addEventListener("click", drawBoardGame);
 function drawBoardGame() {
@@ -85,8 +85,8 @@ function drawSecretWord() {
     //inputElement.value = lettersArray[i].toUpperCase();
     inputElement.style.color = "white";
     lettersBox.appendChild(inputElement);
-    inputElement.style.outline = "none";
     inputElement.focus();
+    inputElement.style.outline = "none";
   }
 
   return lettersArray;
@@ -159,6 +159,8 @@ function checkInput(e) {
       let wrongSound = new Audio("sounds/mixkit-boxer-getting-hit-2055.mp3");
       wrongSound.play();
 
+      drawHangman();
+
       mistakes++;
     }
 
@@ -167,8 +169,6 @@ function checkInput(e) {
     } else if (mistakes === 6) {
       gameOver();
       document.removeEventListener("keydown", checkInput);
-    } else {
-      drawHangman();
     }
   }
 }
@@ -199,7 +199,7 @@ function addWord() {
     } else {
       words.push(wordInput.value);
       wordInput.value = "";
-      addWordDialog.close();
+      //addWordDialog.close();
     }
   });
 
@@ -224,7 +224,7 @@ function youWin() {
   closeWinDialogBtn.addEventListener("click", () => {
     clickAudio.play();
     setTimeout(winDialog.close(), 650);
-    setTimeout(resetGame(), 660);
+    setTimeout(resetGame(), 651);
   });
 
   // let playAgainBtn = document.querySelector("#playAgainBtn");
@@ -253,7 +253,7 @@ function gameOver() {
   closeLoseDialogBtn.addEventListener("click", () => {
     clickAudio.play();
     setTimeout(loseDialog.close(), 650);
-    setTimeout(resetGame(), 660);
+    setTimeout(resetGame(), 651);
   });
 
   // let playAgainLostBtn = document.querySelector("#playAgainLostBtn");
