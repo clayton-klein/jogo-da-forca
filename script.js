@@ -104,72 +104,74 @@ function checkInput(e) {
   let typedLetter = e.key;
   //console.log(typedLetter);
 
-  // if (
-  //   rightLetters.includes(typedLetter) ||
-  //   wrongLetters.includes(typedLetter)
-  // ) {
-  //   repeatedLetterDialog.showModal();
-  //   let closeRepeatedLetterDialogBtn = document.querySelector(
-  //     "#closeRepeatedLetterDialogBtn"
-  //   );
-  //   closeRepeatedLetterDialogBtn.addEventListener("click", () => {
-  //     clickAudio.play();
-  //     repeatedLetterDialog.close();
-  //   });
+  if (
+    rightLetters.includes(typedLetter) ||
+    wrongLetters.includes(typedLetter)
+  ) {
+    repeatedLetterDialog.showModal();
+    let closeRepeatedLetterDialogBtn = document.querySelector(
+      "#closeRepeatedLetterDialogBtn"
+    );
+    closeRepeatedLetterDialogBtn.addEventListener("click", () => {
+      clickAudio.play();
+      repeatedLetterDialog.close();
+    });
 
-  for (let i = 0; i < lettersArray.length; i++) {
-    if (typedLetter === lettersArray[i] && !rightLetters.includes(typedLetter)) {
-      rightLetters.push(typedLetter.toLowerCase());
-      //console.log(rightLetters);
-      let letterInput = document.querySelector(`#letterInput${i}`);
-      letterInput.value = lettersArray[i].toUpperCase();
+    for (let i = 0; i < lettersArray.length; i++) {
+      if (
+        typedLetter === lettersArray[i] &&
+        !rightLetters.includes(typedLetter)
+      ) {
+        rightLetters.push(typedLetter.toLowerCase());
+        //console.log(rightLetters);
+        let letterInput = document.querySelector(`#letterInput${i}`);
+        letterInput.value = lettersArray[i].toUpperCase();
 
-      let correctSound = new Audio(
-        "sounds/mixkit-funny-squeaky-toy-hits-2813.mp3"
+        let correctSound = new Audio(
+          "sounds/mixkit-funny-squeaky-toy-hits-2813.mp3"
+        );
+        correctSound.play();
+
+        remainingLetters--;
+      }
+    }
+
+    if (!regex.test(typedLetter)) {
+      invalidInputDialog.showModal();
+      let closeInvalidInputDialogBtn = document.querySelector(
+        "#closeInvalidInputDialogBtn"
       );
-      correctSound.play();
+      closeInvalidInputDialogBtn.addEventListener("click", () => {
+        clickAudio.play();
+        invalidInputDialog.close();
+      });
+    }
 
-      remainingLetters--;
+    if (
+      !lettersArray.includes(typedLetter) &&
+      typedLetter.length == 1 &&
+      regex.test(typedLetter)
+    ) {
+      wrongLetters.push(typedLetter.toUpperCase());
+      //console.log(wrongLetters);
+      wrongLettersBox.textContent = wrongLetters;
+
+      let wrongSound = new Audio("sounds/mixkit-boxer-getting-hit-2055.mp3");
+      wrongSound.play();
+
+      mistakes++;
+    }
+
+    if (remainingLetters === 0) {
+      youWin();
+    } else if (mistakes === 6) {
+      gameOver();
+      document.removeEventListener("keydown", checkInput);
+    } else {
+      drawHangman();
     }
   }
-
-  if (!regex.test(typedLetter)) {
-    invalidInputDialog.showModal();
-    let closeInvalidInputDialogBtn = document.querySelector(
-      "#closeInvalidInputDialogBtn"
-    );
-    closeInvalidInputDialogBtn.addEventListener("click", () => {
-      clickAudio.play();
-      invalidInputDialog.close();
-    });
-  }
-
-  if (
-    !lettersArray.includes(typedLetter) &&
-    typedLetter.length == 1 &&
-    regex.test(typedLetter)
-  ) {
-    wrongLetters.push(typedLetter.toUpperCase());
-    //console.log(wrongLetters);
-    wrongLettersBox.textContent = wrongLetters;
-
-    let wrongSound = new Audio("sounds/mixkit-boxer-getting-hit-2055.mp3");
-    wrongSound.play();
-
-    mistakes++;
-  }
-
-  if (remainingLetters === 0) {
-    youWin();
-  } else if (mistakes === 6) {
-    gameOver();
-    document.removeEventListener("keydown", checkInput);
-  } else {
-    drawHangman();
-  }
 }
-
-
 
 quitBtn.addEventListener("click", () => {
   clickAudio.play();
