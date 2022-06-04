@@ -61,7 +61,7 @@ function drawBoardGame() {
   bgMusic.play();
   bgMusic.loop = true;
 
-  tip.style.visibility = "visible";
+  //tip.style.visibility = "visible";
   wrongLettersBox.style.visibility = "visible";
   playBtn.style.display = "none";
   addWordBtn.style.display = "none";
