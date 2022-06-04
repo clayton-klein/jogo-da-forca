@@ -61,6 +61,13 @@ h1 {
 .hangman-img {
     margin-top: 2vh;
     width: 40%;
+    margin-bottom: 1vh;
+}
+
+.wrong-letters-legend {
+    font-family: var(--font-freckle);
+    visibility: hidden;
+    margin-top: 2vh;
 }
 
 .tip, .letters-box, .right-letters-box, .wrong-letters-box, .win, .lose {
@@ -81,7 +88,7 @@ h1 {
     text-align: center;
     border-radius: 5px;
     border: none;
-    border-bottom: solid 4px lightseagreen;
+    border-bottom: solid 4px aliceblue;
     background-color: rgba(0, 0, 0, 0.3);
 }
 
@@ -91,6 +98,8 @@ h1 {
 
 .wrong-letters-box {
     visibility: hidden;
+    color: red;
+    font-size: 1.5rem;
 }
 
 

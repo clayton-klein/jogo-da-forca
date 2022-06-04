@@ -35,7 +35,8 @@
           />
           <!-- <p class="tip">Dica: Nomes.</p> -->
           <div class="letters-box"></div>
-          <div class="wrong-letters-box">Letras Erradas:</div>
+          <p class="wrong-letters-legend">Letras Erradas:</p>
+          <div class="wrong-letters-box"></div>
           <button class="start-btn">Iniciar Jogo</button>
           <button class="quit-btn">Desistir</button>
           <button class="add-word-btn">Adicionar Palavra</button>
@@ -44,6 +45,12 @@
           <div class="dialog-content">
             <p>Esta letra já foi escolhida, digite uma letra diferente.</p>
             <button id="closeRepeatedLetterDialogBtn">Fechar</button>
+          </div>
+        </dialog>
+        <dialog id="repeatedWordDialog">
+          <div class="dialog-content">
+            <p>Esta palavra já existe, digite uma palavra diferente.</p>
+            <button id="closeRepeatedWordDialogBtn">Fechar</button>
           </div>
         </dialog>
         <dialog id="invalidInputDialog">

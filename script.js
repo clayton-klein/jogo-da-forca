@@ -17,6 +17,7 @@
 let clickAudio = new Audio("sounds/mixkit-retro-game-notification-212.mp3");
 let hangmanImg = document.querySelector(".hangman-img");
 let tip = document.querySelector(".tip");
+let wrongLettersLegend = document.querySelector(".wrong-letters-legend");
 let lettersBox = document.querySelector(".letters-box");
 let wrongLettersBox = document.querySelector(".wrong-letters-box");
 let playBtn = document.querySelector(".start-btn");
@@ -27,6 +28,7 @@ let playAgainBtn = document.querySelector(".play-again-btn");
 let addWordDialog = document.querySelector(".add-word-dialog");
 let invalidInputDialog = document.querySelector("#invalidInputDialog");
 let repeatedLetterDialog = document.querySelector("#repeatedLetterDialog");
+let repeatedWordDialog = document.querySelector("#repeatedWordDialog");
 let winDialog = document.querySelector(".win-dialog");
 let loseDialog = document.querySelector(".lose-dialog");
 
@@ -62,11 +64,12 @@ function drawBoardGame() {
   bgMusic.loop = true;
 
   //tip.style.visibility = "visible";
+  wrongLettersLegend.style.visibility = "visible";
   wrongLettersBox.style.visibility = "visible";
   playBtn.style.display = "none";
   addWordBtn.style.display = "none";
   quitBtn.style.display = "inline-block";
-  document.querySelector("header").style.marginTop = "6vh";
+  document.querySelector("header").style.marginTop = "10vh";
 
   drawSecretWord();
 
@@ -86,7 +89,7 @@ function drawSecretWord() {
     inputElement.setAttribute("maxlength", "1");
     inputElement.setAttribute("readonly", "");
     //inputElement.value = lettersArray[i].toUpperCase();
-    inputElement.style.color = "white";
+    //inputElement.style.color = "white";
     lettersBox.appendChild(inputElement);
     inputElement.focus();
     inputElement.style.outline = "none";
@@ -102,8 +105,8 @@ function selectSecretWord() {
 }
 
 function checkInput(e) {
-  let typedLetter = e.key;
-  //console.log(typedLetter);
+  let typedLetter = e.key.toLowerCase();
+  console.log(typedLetter);
 
   if (
     rightLetters.includes(typedLetter) ||
@@ -117,15 +120,11 @@ function checkInput(e) {
       clickAudio.play();
       repeatedLetterDialog.close();
     });
+    return;
   }
 
   for (let i = 0; i < lettersArray.length; i++) {
-    if (
-      typedLetter === lettersArray[i] &&
-      !rightLetters.includes(typedLetter)
-    ) {
-      rightLetters.push(typedLetter.toLowerCase());
-      //console.log(rightLetters);
+    if (typedLetter === lettersArray[i]) {
       let letterInput = document.querySelector(`#letterInput${i}`);
       letterInput.value = lettersArray[i].toUpperCase();
 
@@ -134,8 +133,31 @@ function checkInput(e) {
       );
       correctSound.play();
 
+      rightLetters.push(typedLetter.toLowerCase());
+      //console.log(rightLetters);
+
       remainingLetters--;
     }
+  }
+
+  if (
+    !lettersArray.includes(typedLetter) &&
+    typedLetter.length === 1 &&
+    regex.test(typedLetter) &&
+    !wrongLetters.includes(typedLetter)
+  ) {
+    wrongLetters.push(typedLetter.toLowerCase());
+    //console.log(wrongLetters);
+    wrongLettersBox.textContent = wrongLetters.map((letter) => {
+      return letter.toUpperCase();
+    });
+
+    let wrongSound = new Audio("sounds/mixkit-boxer-getting-hit-2055.mp3");
+    wrongSound.play();
+
+    mistakes++;
+
+    drawHangman();
   }
 
   if (!regex.test(typedLetter)) {
@@ -147,23 +169,6 @@ function checkInput(e) {
       clickAudio.play();
       invalidInputDialog.close();
     });
-  }
-
-  if (
-    !lettersArray.includes(typedLetter) &&
-    typedLetter.length == 1 &&
-    regex.test(typedLetter)
-  ) {
-    wrongLetters.push(typedLetter.toUpperCase());
-    //console.log(wrongLetters);
-    wrongLettersBox.textContent = wrongLetters;
-
-    let wrongSound = new Audio("sounds/mixkit-boxer-getting-hit-2055.mp3");
-    wrongSound.play();
-
-    mistakes++;
-
-    drawHangman();
   }
 
   if (remainingLetters === 0) {
@@ -197,8 +202,18 @@ function addWord() {
         clickAudio.play();
         invalidInputDialog.close();
       });
+    } else if (words.includes(wordInput.value)) {
+      repeatedWordDialog.showModal();
+      let closeRepeatedWordDialogBtn = document.querySelector(
+        "#closeRepeatedWordDialogBtn"
+      );
+      closeRepeatedWordDialogBtn.addEventListener("click", () => {
+        clickAudio.play();
+        repeatedWordDialog.close();
+      });
     } else {
       words.push(wordInput.value);
+      wordInput.focus();
       wordInput.value = "";
       //addWordDialog.close();
     }
@@ -224,8 +239,13 @@ function youWin() {
   let closeWinDialogBtn = document.querySelector("#closeWinDialogBtn");
   closeWinDialogBtn.addEventListener("click", () => {
     clickAudio.play();
-    setTimeout(winDialog.close(), 650);
-    setTimeout(resetGame(), 651);
+
+    function showWinDialog() {
+      winDialog.close();
+    }
+    setTimeout(showWinDialog, 650);
+
+    setTimeout(resetGame, 651);
   });
 
   // let playAgainBtn = document.querySelector("#playAgainBtn");
@@ -246,15 +266,27 @@ function gameOver() {
   let gameOverTrombone = new Audio(
     "sounds/mixkit-sad-game-over-trombone-471.mp3"
   );
-  setTimeout(gameOverTrombone.play(), 1000);
 
-  loseDialog.showModal();
+  function playTrombone() {
+    gameOverTrombone.play();
+  }
+  setTimeout(playTrombone, 1000);
+
+  function showGameOverDialog() {
+    loseDialog.showModal();
+  }
+  setTimeout(showGameOverDialog, 1000);
 
   let closeLoseDialogBtn = document.querySelector("#closeLoseDialogBtn");
   closeLoseDialogBtn.addEventListener("click", () => {
     clickAudio.play();
-    setTimeout(loseDialog.close(), 650);
-    setTimeout(resetGame(), 651);
+
+    function closeGameOverDialog() {
+      loseDialog.close();
+    }
+    setTimeout(closeGameOverDialog, 650);
+
+    setTimeout(resetGame, 651);
   });
 
   // let playAgainLostBtn = document.querySelector("#playAgainLostBtn");
@@ -265,5 +297,7 @@ function gameOver() {
 }
 
 function resetGame() {
+  remainingLetters = 0;
+  wrongLetters = 0;
   location.reload();
 }
