@@ -72,12 +72,12 @@ function drawSecretWord() {
     inputElement.setAttribute("id", `letterInput${i}`);
     inputElement.setAttribute("type", "text");
     inputElement.setAttribute("maxlength", "1");
-    inputElement.setAttribute("readonly", "");
+    //inputElement.setAttribute("readonly", "");
     lettersBox.appendChild(inputElement);
     inputElement.style.outline = "none";
   }
 
-  document.querySelector("#letterInput0").focus;
+  document.querySelector("#letterInput0").focus();
 
   return lettersArray;
 }
