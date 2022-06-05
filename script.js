@@ -55,7 +55,6 @@ function drawBoardGame() {
   playBtn.style.display = "none";
   addWordBtn.style.display = "none";
   quitBtn.style.display = "inline-block";
-  document.querySelector("header").style.marginTop = "14vh";
 
   drawSecretWord();
 
@@ -75,9 +74,10 @@ function drawSecretWord() {
     inputElement.setAttribute("maxlength", "1");
     inputElement.setAttribute("readonly", "");
     lettersBox.appendChild(inputElement);
-    inputElement.focus();
     inputElement.style.outline = "none";
   }
+
+  document.querySelector("#letterInput0").focus;
 
   return lettersArray;
 }
@@ -200,7 +200,7 @@ function addWord() {
       words.push(wordInput.value);
       wordInput.focus();
       wordInput.value = "";
-      wordInput.placeholder = 'Palavra adicionada!';
+      wordInput.placeholder = "Palavra adicionada!";
       //addWordDialog.close();
     }
   });

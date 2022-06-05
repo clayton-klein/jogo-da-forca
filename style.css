@@ -30,15 +30,16 @@ html {
 }
 
 header {
-  display:inline-block;
-  margin-top: 5%;
-  margin-left: 5%;
-  width: 100%;
-  text-align: left;
+  display: flex;
+  align-self: flex-start;
+  margin-top: 8vh;
+  margin-left: 5vh;
+  /* width: 100%; */
+  /* text-align: left; */
 }
 
 .logo-alura {
-  width: 3%;
+  width: 90%;
 }
 
 .game-area {
@@ -127,6 +128,7 @@ button:hover {
 
 .quit-btn {
   display: none;
+  margin: 2vh;
 }
 
 dialog {
@@ -229,7 +231,7 @@ footer p {
 }
 
 .credits {
-  margin-top: 2vh;
+  margin: 2vh;
 }
 
 .credits a {
@@ -238,4 +240,80 @@ footer p {
 
 .credits a:visited {
   color: rgb(15, 148, 182);
+}
+
+/* Tablet layout */
+@media screen and (max-width: 768px) {
+  .container, .game-area {
+    width: 100%;
+  }
+
+  header {
+    margin-top: 3vh;
+    margin-left: 3vh;
+  }
+
+  footer {
+    width: 100%;
+    font-size: 0.8rem;
+  }
+}
+
+/* Smartphone layout */
+@media screen and (max-width: 380px) {
+  .container, .game-area {
+    width: 100%;
+  }
+
+  header {
+    margin-top: 1vh;
+    margin-left: 0vh;
+  }
+
+  .logo-alura {
+    width: 50%;
+  }
+
+  h1 {
+    font-size: 3rem;
+  }
+
+  button {
+    margin: 0.3rem 0;
+  }
+
+  dialog, dialog input {
+    width: 80%;
+  }
+
+  .letters-box input {
+    font-size: 1.5rem;
+    width: 2rem;
+    height: 2.5rem;
+  }
+
+  .wrong-letters-legend {
+    color: aliceblue;
+    background-color: rgba(0, 0, 0, 0.8);
+    width: fit-content;
+    margin: 2vh auto;
+  }
+
+  .wrong-letters-box {
+    font-size: 1rem;
+  }
+
+  .quit-btn {
+    margin: 2vh;
+  }
+
+  footer {
+    width: 100%;
+    font-size: 0.8rem;
+  }
+
+  .social-media-icons img {
+    margin-top: 2vh;
+    width: 10%;
+  }
 }
