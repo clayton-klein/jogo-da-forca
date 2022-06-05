@@ -55,7 +55,7 @@ function drawBoardGame() {
   playBtn.style.display = "none";
   addWordBtn.style.display = "none";
   quitBtn.style.display = "inline-block";
-  document.querySelector("header").style.marginTop = "10vh";
+  document.querySelector("header").style.marginTop = "14vh";
 
   drawSecretWord();
 
@@ -157,8 +157,10 @@ function checkInput(e) {
 
   if (remainingLetters === 0) {
     youWin();
+    document.removeEventListener("keydown", checkInput);
   } else if (mistakes === 6) {
     gameOver();
+    document.removeEventListener("keydown", checkInput);
   }
 }
 
