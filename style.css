@@ -42,6 +42,15 @@ header {
   width: 90%;
 }
 
+/* regras para deixá-lo "invisível" */
+#fakeInput {
+  caret-color: transparent;
+  color: transparent;
+  border: none;
+  background-color: transparent;
+  outline: transparent;
+}
+
 .game-area {
   display: flex;
   flex-direction: column;
@@ -154,6 +163,8 @@ dialog input {
   line-height: 30px;
   margin-top: 10px;
   border-radius: 5px;
+  /* "esconde" o cursor que pisca do input */
+  caret-color: transparent;
 }
 
 dialog input::placeholder {
@@ -244,7 +255,8 @@ footer p {
 
 /* Tablet layout */
 @media screen and (max-width: 768px) {
-  .container, .game-area {
+  .container,
+  .game-area {
     width: 100%;
   }
 
@@ -261,7 +273,8 @@ footer p {
 
 /* Smartphone layout */
 @media screen and (max-width: 380px) {
-  .container, .game-area {
+  .container,
+  .game-area {
     width: 100%;
   }
 
@@ -282,7 +295,8 @@ footer p {
     margin: 0.3rem 0;
   }
 
-  dialog, dialog input {
+  dialog,
+  dialog input {
     width: 80%;
   }
 

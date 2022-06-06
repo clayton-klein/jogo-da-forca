@@ -17,6 +17,7 @@ let repeatedLetterDialog = document.querySelector("#repeatedLetterDialog");
 let repeatedWordDialog = document.querySelector("#repeatedWordDialog");
 let winDialog = document.querySelector(".win-dialog");
 let loseDialog = document.querySelector(".lose-dialog");
+let fakeInput = document.querySelector("#fakeInput");
 
 let words = [
   "clayton",
@@ -58,7 +59,8 @@ function drawBoardGame() {
 
   drawSecretWord();
 
-  document.addEventListener("keydown", checkInput);
+  document.addEventListener("input", checkInput);
+  fakeInput.focus();
 }
 
 function drawSecretWord() {
@@ -72,12 +74,12 @@ function drawSecretWord() {
     inputElement.setAttribute("id", `letterInput${i}`);
     inputElement.setAttribute("type", "text");
     inputElement.setAttribute("maxlength", "1");
-    inputElement.setAttribute("readonly", "");
+    //inputElement.setAttribute("readonly", "");
     lettersBox.appendChild(inputElement);
     inputElement.style.outline = "none";
   }
 
-  document.querySelector("#letterInput0").focus();
+  //document.querySelector("#letterInput0").focus();
 
   return lettersArray;
 }
@@ -89,8 +91,8 @@ function selectSecretWord() {
 }
 
 function checkInput(e) {
-  let typedLetter = e.key.toLowerCase();
-  //console.log(typedLetter);
+  let typedLetter = e.target.value.toLowerCase();
+  console.log(typedLetter);
 
   if (
     rightLetters.includes(typedLetter) ||
@@ -155,12 +157,14 @@ function checkInput(e) {
     });
   }
 
+  fakeInput.value = "";
+
   if (remainingLetters === 0) {
     youWin();
-    document.removeEventListener("keydown", checkInput);
+    document.removeEventListener("input", checkInput);
   } else if (mistakes === 6) {
     gameOver();
-    document.removeEventListener("keydown", checkInput);
+    document.removeEventListener("input", checkInput);
   }
 }
 
