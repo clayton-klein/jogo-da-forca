@@ -30,6 +30,7 @@ let words = [
   "oracle",
   "alura",
   "marlene",
+  "genesys",
 ];
 
 let secretWord = "";
