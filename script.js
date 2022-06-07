@@ -50,16 +50,16 @@ function drawBoardGame() {
   let bgMusic = new Audio("sounds/mixkit-quiet-forest-ambience-1220.mp3");
   bgMusic.play();
   bgMusic.loop = true;
-  
+
   //tip.style.visibility = "visible";
   wrongLettersLegend.style.visibility = "visible";
   wrongLettersBox.style.visibility = "visible";
   playBtn.style.display = "none";
   addWordBtn.style.display = "none";
   quitBtn.style.display = "inline-block";
-  
+
   drawSecretWord();
-  
+
   fakeInput.focus();
   document.addEventListener("input", checkInput);
 }
@@ -99,7 +99,7 @@ function checkInput(e) {
     rightLetters.includes(typedLetter) ||
     wrongLetters.includes(typedLetter)
   ) {
-    typedLetter = 'repeated';
+    typedLetter = "repeated"; //segue a função, mas sem incrementar ou decrementar erros e acertos.
     repeatedLetterDialog.showModal();
     let closeRepeatedLetterDialogBtn = document.querySelector(
       "#closeRepeatedLetterDialogBtn"
