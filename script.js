@@ -196,8 +196,12 @@ function addWord() {
         clickAudio.play();
         invalidInputDialog.close();
       });
-    } else if (words.includes(wordInput.value)) {
+    } else if (words.includes(wordInput.value.toLowerCase())) {
       repeatedWordDialog.showModal();
+
+      wordInput.value = "";
+      wordInput.placeholder = "";
+      wordInput.focus();
 
       let closeRepeatedWordDialogBtn = document.querySelector(
         "#closeRepeatedWordDialogBtn"
@@ -207,7 +211,7 @@ function addWord() {
         repeatedWordDialog.close();
       });
     } else {
-      words.push(wordInput.value);
+      words.push(wordInput.value.toLowerCase());
       wordInput.value = "";
       wordInput.focus();
       wordInput.placeholder = "Palavra adicionada!";
