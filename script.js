@@ -99,6 +99,7 @@ function checkInput(e) {
     rightLetters.includes(typedLetter) ||
     wrongLetters.includes(typedLetter)
   ) {
+    typedLetter = 'repeated';
     repeatedLetterDialog.showModal();
     let closeRepeatedLetterDialogBtn = document.querySelector(
       "#closeRepeatedLetterDialogBtn"
@@ -110,7 +111,7 @@ function checkInput(e) {
   }
 
   for (let i = 0; i < lettersArray.length; i++) {
-    if (typedLetter === lettersArray[i] && !rightLetters.includes(typedLetter)) {
+    if (typedLetter === lettersArray[i]) {
       let letterInput = document.querySelector(`#letterInput${i}`);
       letterInput.value = lettersArray[i].toUpperCase();
 
@@ -162,10 +163,8 @@ function checkInput(e) {
 
   if (remainingLetters === 0) {
     youWin();
-    document.removeEventListener("input", checkInput);
   } else if (mistakes === 6) {
     gameOver();
-    document.removeEventListener("input", checkInput);
   }
 }
 
@@ -232,16 +231,19 @@ function youWin() {
   );
   applause.play();
 
-  winDialog.showModal();
+  function showWinDialog() {
+    winDialog.showModal();
+  }
+  setTimeout(showWinDialog, 650);
 
   let closeWinDialogBtn = document.querySelector("#closeWinDialogBtn");
   closeWinDialogBtn.addEventListener("click", () => {
     clickAudio.play();
 
-    function showWinDialog() {
+    function closeWinDialog() {
       winDialog.close();
     }
-    setTimeout(showWinDialog, 650);
+    setTimeout(closeWinDialog, 650);
 
     setTimeout(resetGame, 651);
   });
