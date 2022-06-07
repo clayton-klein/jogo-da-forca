@@ -32,7 +32,7 @@ html {
 header {
   display: flex;
   align-self: flex-start;
-  margin-top: 8vh;
+  margin-top: 10vh;
   margin-left: 5vh;
   /* width: 100%; */
   /* text-align: left; */
@@ -44,6 +44,7 @@ header {
 
 /* regras para deixá-lo "invisível" */
 #fakeInput {
+  position: absolute;
   caret-color: transparent;
   color: transparent;
   border: none;
@@ -78,12 +79,6 @@ h1 {
   margin-bottom: 1vh;
 }
 
-.wrong-letters-legend {
-  font-family: var(--font-freckle);
-  visibility: hidden;
-  margin-top: 2vh;
-}
-
 .tip,
 .letters-box,
 .right-letters-box,
@@ -111,11 +106,18 @@ h1 {
   background-color: rgba(0, 0, 0, 0.3);
 }
 
+.wrong-letters-legend {
+  font-family: var(--font-freckle);
+  visibility: hidden;
+  margin-top: 1vh;
+  font-size: 1.3rem;
+}
+
 .wrong-letters-box {
   visibility: hidden;
   color: red;
-  font-size: 1.5rem;
-  background-color: rgba(0, 0, 0, 0.8);
+  font-size: 1.3rem;
+  background-color: rgba(240, 248, 255, 0.7);
   width: fit-content;
   margin: 0 auto;
   padding: 0px 5px;
@@ -301,6 +303,10 @@ footer p {
     width: 80%;
   }
 
+  dialog input {
+    font-size: 1.1rem;
+  }
+
   .letters-box input {
     font-size: 1.5rem;
     width: 2rem;
@@ -311,15 +317,16 @@ footer p {
     color: aliceblue;
     background-color: rgba(0, 0, 0, 0.8);
     width: fit-content;
-    margin: 2vh auto;
+    margin: 0.5vh auto;
   }
 
   .wrong-letters-box {
+    gap: 0px;
     font-size: 1rem;
   }
 
   .quit-btn {
-    margin: 2vh;
+    margin-top: 5vh;
   }
 
   footer {

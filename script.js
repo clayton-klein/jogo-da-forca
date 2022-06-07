@@ -39,7 +39,7 @@ let lettersArray = [];
 let rightLetters = [];
 let wrongLetters = [];
 let mistakes = 0;
-let regex = /^[a-z]+$/i;
+let regex = /^[a-zA-Z]+$/;
 
 playBtn.addEventListener("click", drawBoardGame);
 function drawBoardGame() {
@@ -50,18 +50,18 @@ function drawBoardGame() {
   let bgMusic = new Audio("sounds/mixkit-quiet-forest-ambience-1220.mp3");
   bgMusic.play();
   bgMusic.loop = true;
-
+  
   //tip.style.visibility = "visible";
   wrongLettersLegend.style.visibility = "visible";
   wrongLettersBox.style.visibility = "visible";
   playBtn.style.display = "none";
   addWordBtn.style.display = "none";
   quitBtn.style.display = "inline-block";
-
+  
   drawSecretWord();
-
-  document.addEventListener("input", checkInput);
+  
   fakeInput.focus();
+  document.addEventListener("input", checkInput);
 }
 
 function drawSecretWord() {
@@ -75,7 +75,7 @@ function drawSecretWord() {
     inputElement.setAttribute("id", `letterInput${i}`);
     inputElement.setAttribute("type", "text");
     inputElement.setAttribute("maxlength", "1");
-    //inputElement.setAttribute("readonly", "");
+    inputElement.setAttribute("readonly", "");
     lettersBox.appendChild(inputElement);
     inputElement.style.outline = "none";
   }
@@ -93,7 +93,7 @@ function selectSecretWord() {
 
 function checkInput(e) {
   let typedLetter = e.target.value.toLowerCase();
-  console.log(typedLetter);
+  //console.log(typedLetter);
 
   if (
     rightLetters.includes(typedLetter) ||
@@ -107,11 +107,10 @@ function checkInput(e) {
       clickAudio.play();
       repeatedLetterDialog.close();
     });
-    return;
   }
 
   for (let i = 0; i < lettersArray.length; i++) {
-    if (typedLetter === lettersArray[i]) {
+    if (typedLetter === lettersArray[i] && !rightLetters.includes(typedLetter)) {
       let letterInput = document.querySelector(`#letterInput${i}`);
       letterInput.value = lettersArray[i].toUpperCase();
 
@@ -159,6 +158,7 @@ function checkInput(e) {
   }
 
   fakeInput.value = "";
+  fakeInput.focus();
 
   if (remainingLetters === 0) {
     youWin();
@@ -177,14 +177,19 @@ quitBtn.addEventListener("click", () => {
 addWordBtn.addEventListener("click", addWord);
 function addWord() {
   clickAudio.play();
+
   addWordDialog.showModal();
+
   let saveAddedWordBtn = document.querySelector("#saveAddedWordBtn");
   saveAddedWordBtn.addEventListener("click", () => {
     let wordInput = document.querySelector("#wordInput");
-    clickAudio.play();
     //console.log(wordInput);
+
+    clickAudio.play();
+
     if (!regex.test(wordInput.value) || wordInput.value.length > 8) {
       invalidInputDialog.showModal();
+
       let closeInvalidInputDialogBtn = document.querySelector(
         "#closeInvalidInputDialogBtn"
       );
@@ -194,6 +199,7 @@ function addWord() {
       });
     } else if (words.includes(wordInput.value)) {
       repeatedWordDialog.showModal();
+
       let closeRepeatedWordDialogBtn = document.querySelector(
         "#closeRepeatedWordDialogBtn"
       );
@@ -203,10 +209,9 @@ function addWord() {
       });
     } else {
       words.push(wordInput.value);
-      wordInput.focus();
       wordInput.value = "";
+      wordInput.focus();
       wordInput.placeholder = "Palavra adicionada!";
-      //addWordDialog.close();
     }
   });
 
@@ -220,7 +225,7 @@ function addWord() {
 }
 
 function youWin() {
-  document.removeEventListener("keydown", checkInput);
+  document.removeEventListener("input", checkInput);
 
   let applause = new Audio(
     "sounds/mixkit-animated-small-group-applause-523.mp3"
@@ -254,7 +259,7 @@ function drawHangman() {
 }
 
 function gameOver() {
-  document.removeEventListener("keydown", checkInput);
+  document.removeEventListener("input", checkInput);
 
   let bloodyAudio = new Audio("sounds/mixkit-video-game-blood-pop-2361.mp3");
   bloodyAudio.play();
