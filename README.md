@@ -1,4 +1,7 @@
-# Jogo Da Forca
+# Jogo Da Forca.
+
+<img src="images/badge-desafio-forca.png" alt="medalha por ter cumprido o segundo desafio do programa ONE" align="right" width="200"/>
+
 Segundo desafio do programa ONE (Oracle Next Education) em parceria com Alura.
 
 **Requisitos:**
@@ -15,3 +18,8 @@ Segundo desafio do programa ONE (Oracle Next Education) em parceria com Alura.
 
 **Extras:**
 - A página deve conter um campo para inserção de texto com a finalidade de adicionar novas palavras ao jogo, e um botão "Adicionar nova palavra".
+
+**Minhas observações:**
+- Este desafio me deu uma certa dor de cabeça hehe, foi mais complexo que o primeiro e para "ajudar" eu acabei dando uma bagunçada no meu código no início e uma chave de fechamento de bloco **}** ficou fora de lugar causando bugs "silenciosos" (não acusavam erro no console nem no editor) que me deixaram doido e frustrado haha... demorei alguns dias para encontrar e resolver o problema, mas após finalmente resolver isso a coisa toda fluiu com mais tranquilidade.
+
+- Futuramente talvez eu dê uma incrementada neste projeto incluindo opções do jogador escolher categorias de palavras e exibir dicas, mas por enquanto é isso e logo mais serão liberados novos cursos no programa e outro desafio então bola pra frente...

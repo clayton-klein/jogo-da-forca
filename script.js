@@ -199,10 +199,6 @@ function addWord() {
     } else if (words.includes(wordInput.value.toLowerCase())) {
       repeatedWordDialog.showModal();
 
-      wordInput.value = "";
-      wordInput.placeholder = "";
-      wordInput.focus();
-
       let closeRepeatedWordDialogBtn = document.querySelector(
         "#closeRepeatedWordDialogBtn"
       );
@@ -210,6 +206,10 @@ function addWord() {
         clickAudio.play();
         repeatedWordDialog.close();
       });
+
+      wordInput.value = "";
+      wordInput.focus();
+      wordInput.placeholder = "";
     } else {
       words.push(wordInput.value.toLowerCase());
       wordInput.value = "";
