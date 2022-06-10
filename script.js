@@ -60,7 +60,10 @@ function drawBoardGame() {
 
   drawSecretWord();
 
-  fakeInput.focus();
+  //foca o input fake no celular quando clicar na tela.
+  document.addEventListener('click', () => {
+    fakeInput.focus();
+  });
   document.addEventListener("input", checkInput);
 }
 
