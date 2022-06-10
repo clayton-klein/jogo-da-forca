@@ -62,6 +62,7 @@ header {
   background-image: url(images/paisagem-natural-fundo.webp);
   background-repeat: no-repeat;
   background-size: cover;
+  background-position: center;
 }
 
 h1 {
@@ -263,8 +264,8 @@ footer p {
   }
 
   header {
-    margin-top: 3vh;
-    margin-left: 3vh;
+    margin-top: 10vh;
+    margin-left: 2vh;
   }
 
   footer {
@@ -292,6 +293,12 @@ footer p {
 
   h1 {
     font-size: 3rem;
+    margin-top: 5vh;
+  }
+
+  .hangman-img {
+    width: 40%;
+    margin-top: 10vh;
   }
 
   button {
@@ -326,7 +333,7 @@ footer p {
   }
 
   .quit-btn {
-    margin-top: 5vh;
+    margin-top: 4vh;
   }
 
   footer {
