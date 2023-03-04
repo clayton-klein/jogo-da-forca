@@ -2,7 +2,7 @@
 
 <img src="images/badge-desafio-forca.png" alt="medalha por ter cumprido o segundo desafio do programa ONE" align="right" width="200"/>
 
-Segundo desafio do programa ONE (Oracle Next Education) em parceria com Alura.
+Segundo desafio do programa ONE (Oracle Next Education).
 
 **Requisitos:**
 - Deve funcionar só com letras maiúsculas;
