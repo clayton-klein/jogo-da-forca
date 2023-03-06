@@ -1,3 +1,8 @@
+**Status: finalizado.**
+<br>
+<br>
+<br>
+
 # Jogo Da Forca.
 
 <img src="images/badge-desafio-forca.png" alt="medalha por ter cumprido o segundo desafio do programa ONE" align="right" width="200"/>
